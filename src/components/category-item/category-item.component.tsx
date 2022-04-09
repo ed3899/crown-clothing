@@ -1,3 +1,4 @@
+//% Styles
 import "./category-item.styles.scss";
 
 interface CategoryItemProps {
