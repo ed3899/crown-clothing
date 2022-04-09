@@ -1,11 +1,17 @@
 import {Fragment} from "react";
 import {Outlet, Link} from "react-router-dom";
 
-const NavigationBar = () => (
+//%Styles
+import "./navigation.styles.scss"
+
+//% Assets
+import {ReactComponent as CrwnLogo} from "../../assets/crown.svg";
+
+const Navigation = () => (
   <Fragment>
     <div className="navigation">
       <Link className="logo-container" to="/">
-        <div>Logo</div>
+        <CrwnLogo className="logo" />
       </Link>
 
       <div className="nav-links-container">
@@ -19,4 +25,4 @@ const NavigationBar = () => (
   </Fragment>
 );
 
-export default NavigationBar;
+export default Navigation;
