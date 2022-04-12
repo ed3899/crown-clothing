@@ -5,3 +5,11 @@ declare module "react-dom/client" {
   var createRoot: any;
   export {createRoot};
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    input: React.DetailedHTMLProps<
+      React.InputHTMLAttributes<React.HTMLInputTypeAttribute>
+    >;
+  }
+}
