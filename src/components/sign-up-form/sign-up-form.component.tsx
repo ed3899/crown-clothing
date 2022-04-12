@@ -1,6 +1,11 @@
+import {FirebaseError} from "firebase/app";
+import {UserCredential} from "firebase/auth";
 import React, {useState} from "react";
 
-import {createAuthUserWithEmailAndPassword} from "../../utils/firebase/firebase.utils";
+import {
+  createAuthUserWithEmailAndPassword,
+  createUserDocFromAuth,
+} from "../../utils/firebase/firebase.utils";
 
 const defaultFormFields = {
   displayName: "",
@@ -15,9 +20,11 @@ const SignUpForm = () => {
 
   console.log(formFields);
 
-  const handleSubmit = async (
-    event: React.BaseSyntheticEvent<HTMLFormElement>
-  ) => {
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {
@@ -26,9 +33,22 @@ const SignUpForm = () => {
     }
 
     try {
-      const {user} = await createAuthUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      console.log("user creation error", error);
+      const {user} = (await createAuthUserWithEmailAndPassword(
+        email,
+        password
+      )) as UserCredential;
+
+      await createUserDocFromAuth(user, {displayName});
+
+      resetFormFields();
+    } catch (error: unknown) {
+      const firebaseError = error as InstanceType<typeof FirebaseError>;
+
+      if (firebaseError.code === "auth/email-already-in-use") {
+        alert("cannot create user, email already in use");
+      } else {
+        console.log("user creation error", error);
+      }
     }
   };
 
@@ -41,7 +61,7 @@ const SignUpForm = () => {
   return (
     <div>
       <h1>Sign up with your email and password</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <label>Display Name</label>
         <input
           type="text"
