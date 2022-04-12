@@ -6,10 +6,10 @@ declare module "react-dom/client" {
   export {createRoot};
 }
 
-declare namespace JSX {
-  interface IntrinsicElements {
-    input: React.DetailedHTMLProps<
-      React.InputHTMLAttributes<React.HTMLInputTypeAttribute>
-    >;
-  }
-}
+// declare namespace JSX {
+//   interface IntrinsicElements {
+//     input: React.DetailedHTMLProps<
+//       React.InputHTMLAttributes<React.HTMLInputTypeAttribute>
+//     >;
+//   }
+// }
