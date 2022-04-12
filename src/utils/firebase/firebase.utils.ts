@@ -67,5 +67,5 @@ export const createAuthUserWithEmailAndPassword = async (
 ) => {
   if (!email || !password) return;
 
-  createUserWithEmailAndPassword(auth, email, password);
+  return await createUserWithEmailAndPassword(auth, email, password);
 };

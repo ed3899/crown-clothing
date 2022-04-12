@@ -19,6 +19,17 @@ const SignUpForm = () => {
     event: React.BaseSyntheticEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("password do not match");
+      return;
+    }
+
+    try {
+      const {user} = await createAuthUserWithEmailAndPassword(email, password);
+    } catch (error) {
+      console.log("user creation error", error);
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
