@@ -1,7 +1,7 @@
 //% Libs
 import {FirebaseError} from "firebase/app";
 import {UserCredential} from "firebase/auth";
-import React, {useState, useContext} from "react";
+import React, {useState} from "react";
 
 //% Utils
 import {
@@ -15,7 +15,6 @@ import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
 //% Context
-import {UserContext} from "../../contexts/user.context";
 
 //% Styles
 import "./sign-in-form.styles.scss";
@@ -29,15 +28,12 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email, password} = formFields;
 
-  const {setCurrentUser} = useContext(UserContext);
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
   };
 
   const signInWithGoogle = async () => {
-    const {user} = await signInWithGooglePopup();
-    createUserDocFromAuth(user);
+    await signInWithGooglePopup();
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
