@@ -47,7 +47,20 @@ const SignInForm = () => {
 
       console.log(response);
       resetFormFields();
-    } catch (error: unknown) {}
+    } catch (error: unknown) {
+      const firebaseError = error as InstanceType<typeof FirebaseError>;
+
+      switch (firebaseError.code) {
+        case "auth/wrong-password":
+          alert("incorrect password for email");
+          break;
+        case "auth/user-not-found":
+          alert("no user associated with this email");
+          break;
+        default:
+          console.log(error);
+      }
+    }
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +94,7 @@ const SignInForm = () => {
 
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button buttonType="google" onClick={signInWithGoogle}>
+          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
             Google Sign In
           </Button>
         </div>
