@@ -1,7 +1,7 @@
 //% Libs
 import {FirebaseError} from "firebase/app";
 import {UserCredential} from "firebase/auth";
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 
 //% Utils
 import {
@@ -13,6 +13,9 @@ import {
 //% Components
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
+
+//% Context
+import {UserContext} from "../../contexts/user.context";
 
 //% Styles
 import "./sign-in-form.styles.scss";
@@ -26,7 +29,7 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email, password} = formFields;
 
-  console.log(formFields);
+  const {setCurrentUser} = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -40,12 +43,10 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const {user} = await signInAuthUserWithEmailAndPassword(email, password) as UserCredential;
 
-      console.log(response);
+      setCurrentUser(user)
+
       resetFormFields();
     } catch (error: unknown) {
       const firebaseError = error as InstanceType<typeof FirebaseError>;
