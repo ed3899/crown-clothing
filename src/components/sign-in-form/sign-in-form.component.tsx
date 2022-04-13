@@ -37,15 +37,17 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const {user} = await signInWithGooglePopup();
+    createUserDocFromAuth(user);
   };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const {user} = await signInAuthUserWithEmailAndPassword(email, password) as UserCredential;
-
-      setCurrentUser(user)
+      const {user} = (await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      )) as UserCredential;
 
       resetFormFields();
     } catch (error: unknown) {
