@@ -1,5 +1,5 @@
 import {User} from "firebase/auth";
-import {createContext, useState, useEffect} from "react";
+import React, {createContext, useState, useEffect} from "react";
 
 //% Utils
 import {
@@ -16,7 +16,7 @@ export const UserContext = createContext<{
 });
 
 interface UserProviderProps {
-  children: any;
+  children: React.ReactNode;
 }
 export const UserProvider = (props: UserProviderProps) => {
   const [currentUser, setCurrentUser] = useState<null | User>(null);
