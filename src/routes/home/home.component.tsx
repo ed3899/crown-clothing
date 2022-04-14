@@ -1,7 +1,7 @@
 //% Components
 import Directory from "../../components/directory/directory.component";
 
-import {Routes, Route, Link, Outlet} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
 const Home = function () {
   const categories = [

@@ -3,8 +3,11 @@ import "./cart-item.styles.scss";
 
 interface CartItemProps {
   cartItem: {
+    id: number;
     name: string;
-    quantity: number;
+    price: number;
+    imageUrl: string;
+    quantity?: number;
   };
 }
 
