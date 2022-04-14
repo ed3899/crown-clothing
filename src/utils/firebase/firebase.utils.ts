@@ -11,7 +11,14 @@ import {
   User,
   NextOrObserver,
 } from "firebase/auth";
-import {getFirestore, doc, getDoc, setDoc} from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  writeBatch,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBGdZwLRGf8mzuYJYYVty2Gh8WqdFol6SA",
@@ -36,6 +43,12 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+export const addCollectionAndDocuments = async (
+  collectionKey: any,
+  objectsToAdd: any
+) => {
+  const collectionRef = collection(db, collectionKey);
+};
 
 export const createUserDocFromAuth = async (
   userAuth: User,
