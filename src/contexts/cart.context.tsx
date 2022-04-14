@@ -1,4 +1,4 @@
-import {createContext, useState} from "react";
+import {createContext, useState, useEffect} from "react";
 
 export interface CartItem {
   id: number;
@@ -34,12 +34,14 @@ interface CartContext {
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItem[];
   addItemToCart: (productToAdd: CartItem) => void;
+  cartCount: number;
 }
 export const CartContext = createContext<CartContext>({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  cartCount: 0,
 });
 
 interface CartProviderProps {
@@ -48,6 +50,16 @@ interface CartProviderProps {
 export const CartProvider = (props: CartProviderProps) => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const newCartCount = cartItems.reduce(
+      (total, cartItem) => total + cartItem.quantity!,
+      0
+    );
+
+    setCartCount(newCartCount);
+  }, [cartItems]);
 
   const addItemToCart = (productToAdd: CartItem) => {
     setCartItems(addCartItem(cartItems, productToAdd));
@@ -58,6 +70,7 @@ export const CartProvider = (props: CartProviderProps) => {
     setIsCartOpen,
     cartItems,
     addItemToCart,
+    cartCount,
   };
 
   const {children} = props;
