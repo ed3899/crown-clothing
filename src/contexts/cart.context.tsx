@@ -48,12 +48,16 @@ const removeCartItem = (cartItems: CartItem[], cartItemToRemove: CartItem) => {
   );
 };
 
+const clearCartItem = (cartItems: CartItem[], cartItemToClear: CartItem) =>
+  cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
+
 interface CartContext {
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItem[];
   addItemToCart: (productToAdd: CartItem) => void;
   removeItemToCart: (cartItemToRemove: CartItem) => void;
+  clearItemFromCart: (cartItemToClear: CartItem) => void;
   cartCount: number;
 }
 export const CartContext = createContext<CartContext>({
@@ -62,6 +66,7 @@ export const CartContext = createContext<CartContext>({
   cartItems: [],
   addItemToCart: () => {},
   removeItemToCart: () => {},
+  clearItemFromCart: () => {},
   cartCount: 0,
 });
 
@@ -90,12 +95,17 @@ export const CartProvider = (props: CartProviderProps) => {
     setCartItems(removeCartItem(cartItems, cartItemToRemove));
   };
 
+  const clearItemFromCart = (cartItemToClear: CartItem) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear));
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     addItemToCart,
     removeItemToCart,
+    clearItemFromCart,
     cartCount,
   };
 
