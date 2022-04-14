@@ -7,6 +7,7 @@ export interface CartItem {
   imageUrl: string;
   quantity?: number;
 }
+
 const addCartItem = (
   cartItems: CartItem[],
   productToAdd: CartItem
@@ -29,11 +30,30 @@ const addCartItem = (
   return [...cartItems, {...productToAdd, quantity: 1}];
 };
 
+const removeCartItem = (cartItems: CartItem[], cartItemToRemove: CartItem) => {
+  //find the cart item to remove
+  const existingCartItem = cartItems.find(
+    cartItem => cartItem.id === cartItemToRemove.id
+  );
+
+  //check if quantity is equal to 1, if it is remove it from the cart
+  if (existingCartItem!.quantity === 1) {
+    return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
+  }
+
+  return cartItems.map(cartItem =>
+    cartItem.id === cartItemToRemove.id
+      ? {...cartItem, quantity: cartItem.quantity! - 1}
+      : cartItem
+  );
+};
+
 interface CartContext {
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItem[];
   addItemToCart: (productToAdd: CartItem) => void;
+  removeItemToCart: (cartItemToRemove: CartItem) => void;
   cartCount: number;
 }
 export const CartContext = createContext<CartContext>({
@@ -41,6 +61,7 @@ export const CartContext = createContext<CartContext>({
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeItemToCart: () => {},
   cartCount: 0,
 });
 
@@ -65,11 +86,16 @@ export const CartProvider = (props: CartProviderProps) => {
     setCartItems(addCartItem(cartItems, productToAdd));
   };
 
+  const removeItemToCart = (cartItemToRemove: CartItem) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove));
+  };
+
   const value = {
     isCartOpen,
     setIsCartOpen,
     cartItems,
     addItemToCart,
+    removeItemToCart,
     cartCount,
   };
 
