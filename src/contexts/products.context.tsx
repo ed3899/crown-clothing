@@ -1,9 +1,7 @@
 //% Libs
-import {createContext, useState} from "react";
+import {createContext, useState, useEffect} from "react";
 
-//% Data
-import SHOP_DATA from "../shop-data";
-
+import {addCollectionAndDocuments} from "../utils/firebase/firebase.utils";
 interface PRODUCT {
   id: number;
   name: string;
