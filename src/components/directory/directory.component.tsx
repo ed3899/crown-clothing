@@ -2,7 +2,7 @@
 import "./directory.styles.scss";
 
 //% Components
-import CategoryItem from "../category-item/category-item.component";
+import DirectoryItem from "../directory-item/directory-item.component";
 
 interface DirectoryProps {
   categories: {
@@ -17,7 +17,7 @@ const Directory = function (props: DirectoryProps) {
   return (
     <div className="directory-container">
       {categories.map(category => (
-        <CategoryItem category={category} key={category.id} />
+        <DirectoryItem category={category} key={category.id} />
       ))}
     </div>
   );

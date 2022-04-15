@@ -18,7 +18,7 @@ const Category = () => {
     //Different, may need to modify it later
 
     setProducts(prevState => {
-      if (prevState && categoriesMap[category!]) { 
+      if (prevState && categoriesMap[category!]) {
         return [...prevState, ...categoriesMap[category!]];
       } else {
         return [];
