@@ -3,18 +3,6 @@ import {createContext, useState, useEffect} from "react";
 
 import {getCategoriesAndDocuments} from "../utils/firebase/firebase.utils";
 
-export interface Product {
-  id: number;
-  name: string;
-  imageUrl: string;
-  price: number;
-}
-export interface CategoriesMapInt {
-  [i: string]: Product[];
-}
-export interface CategoriesContextInterface {
-  categoriesMap: CategoriesMapInt;
-}
 export const CategoriesContext = createContext<CategoriesContextInterface>({
   categoriesMap: {},
 });

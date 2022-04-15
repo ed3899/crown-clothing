@@ -13,3 +13,15 @@ declare module "react-dom/client" {
 //     >;
 //   }
 // }
+interface Product {
+  id: number;
+  name: string;
+  imageUrl: string;
+  price: number;
+}
+interface CategoriesMapInt {
+  [i: string]: Product[];
+}
+interface CategoriesContextInterface {
+  categoriesMap: CategoriesMapInt;
+}

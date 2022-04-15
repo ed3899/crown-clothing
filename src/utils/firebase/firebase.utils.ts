@@ -21,7 +21,6 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
-import {CategoriesMapInt} from "../../contexts/categories.context";
 
 //% Data
 import SHOP_DATA from "../../shop-data";
