@@ -21,6 +21,7 @@ import {
   query,
   getDocs,
 } from "firebase/firestore";
+import {CategoriesMapInt} from "../../contexts/categories.context";
 
 //% Data
 import SHOP_DATA from "../../shop-data";
@@ -78,7 +79,7 @@ export const getCategoriesAndDocuments = async () => {
     return acc;
   }, {});
 
-  return categoryMap;
+  return categoryMap as CategoriesMapInt;
 };
 
 export const createUserDocFromAuth = async (
