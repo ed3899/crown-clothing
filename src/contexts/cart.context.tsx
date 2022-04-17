@@ -51,7 +51,7 @@ const removeCartItem = (cartItems: CartItem[], cartItemToRemove: CartItem) => {
 const clearCartItem = (cartItems: CartItem[], cartItemToClear: CartItem) =>
   cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
 
-interface CartContext {
+interface CartContextInterface {
   isCartOpen: boolean;
   setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
   cartItems: CartItem[];
@@ -61,7 +61,7 @@ interface CartContext {
   cartCount: number;
   cartTotal: number;
 }
-export const CartContext = createContext<CartContext>({
+export const CartContext = createContext<CartContextInterface>({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],

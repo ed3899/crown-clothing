@@ -1,5 +1,5 @@
 //% Libs
-import {Routes, Route, Link, Outlet} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 
 //% Components
 import Home from "./routes/home/home.component";

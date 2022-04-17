@@ -1,6 +1,6 @@
 //% Libs
 import {Fragment, useContext} from "react";
-import {Outlet, Link} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 
 //% Utils
 import {signOutUser} from "../../utils/firebase/firebase.utils";
