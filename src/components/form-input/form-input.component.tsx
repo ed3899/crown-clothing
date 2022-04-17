@@ -1,4 +1,4 @@
-import "./form-input.styles.scss";
+import {FormInputLabel, Input, Group} from "./form-input.styles";
 
 interface FormInputProps {
   label: string;
@@ -12,19 +12,16 @@ interface FormInputProps {
 const FormInput = (props: FormInputProps) => {
   const {label, ...otherProps} = props;
   return (
-    <div className="group">
-      <input className="form-input" {...otherProps} />
+    <Group>
+      <Input {...otherProps} />
       {label && (
-        <label
-          className={`${
-            otherProps.value.length ? "shrink" : ""
-          } form-input-label`}>
+        <FormInputLabel about={otherProps.value.length ? "true" : ""}>
           {label}
-        </label>
+        </FormInputLabel>
       )}
 
       {/* Weird behavior when changing multiple instance, types */}
-    </div>
+    </Group>
   );
 };
 
