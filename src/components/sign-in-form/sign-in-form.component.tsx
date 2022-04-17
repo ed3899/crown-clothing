@@ -1,6 +1,5 @@
 //% Libs
 import {FirebaseError} from "firebase/app";
-import {UserCredential} from "firebase/auth";
 import React, {useState} from "react";
 
 //% Utils
