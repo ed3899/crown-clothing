@@ -1,5 +1,9 @@
 //% Styles
-import "./directory-item.styles.scss";
+import {
+  BackgroundImage,
+  Body,
+  DirectoryItemContainer,
+} from "./directory-item.styles";
 
 interface CategoryItemProps {
   category: {
@@ -12,16 +16,13 @@ const DirectoryItem = function (props: CategoryItemProps) {
   const {title, imageUrl} = props.category;
 
   return (
-    <div className="directory-item-container">
-      <div
-        className="background-image"
-        style={{backgroundImage: `url(${imageUrl})`}}
-      />
-      <div className="body">
+    <DirectoryItemContainer>
+      <BackgroundImage about={imageUrl} />
+      <Body>
         <h2>{title}</h2>
         <p>Shop Now</p>
-      </div>
-    </div>
+      </Body>
+    </DirectoryItemContainer>
   );
 };
 
