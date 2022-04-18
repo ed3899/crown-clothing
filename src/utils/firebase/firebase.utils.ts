@@ -22,9 +22,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 
-//% Data
-import SHOP_DATA from "../../shop-data";
-
 const firebaseConfig = {
   apiKey: "AIzaSyBGdZwLRGf8mzuYJYYVty2Gh8WqdFol6SA",
   authDomain: "crwn-clothing-db-cc026.firebaseapp.com",
@@ -48,22 +45,22 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
-export const addCollectionAndDocuments = async (
-  collectionKey: any,
-  objectsToAdd: typeof SHOP_DATA
-) => {
-  const collectionRef = collection(db, collectionKey);
-  const batch = writeBatch(db);
+// export const addCollectionAndDocuments = async (
+//   collectionKey: any,
+//   objectsToAdd: any
+// ) => {
+//   const collectionRef = collection(db, collectionKey);
+//   const batch = writeBatch(db);
 
-  objectsToAdd.forEach(object => {
-    const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
-  });
+//   objectsToAdd.forEach(object => {
+//     const docRef = doc(collectionRef, object.title.toLowerCase());
+//     batch.set(docRef, object);
+//   });
 
-  await batch.commit();
+//   await batch.commit();
 
-  console.log("done");
-};
+//   console.log("done");
+// };
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, "categories");
