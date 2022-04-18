@@ -32,3 +32,11 @@ interface Category {
   imageUrl: string;
   route: string;
 }
+
+interface CartItem {
+  id: number;
+  name: string;
+  price: number;
+  imageUrl: string;
+  quantity?: number;
+}

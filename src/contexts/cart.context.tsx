@@ -1,13 +1,6 @@
-import {createContext, useState, useEffect, useReducer} from "react";
+import {createContext, useReducer} from "react";
 
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  imageUrl: string;
-  quantity?: number;
-}
-
+// helper functions
 const addCartItem = (
   cartItems: CartItem[],
   productToAdd: CartItem
@@ -51,9 +44,10 @@ const removeCartItem = (cartItems: CartItem[], cartItemToRemove: CartItem) => {
 const clearCartItem = (cartItems: CartItem[], cartItemToClear: CartItem) =>
   cartItems.filter(cartItem => cartItem.id !== cartItemToClear.id);
 
+// context
 interface CartContextInterface {
   isCartOpen: boolean;
-  setIsCartOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsCartOpen: (bool: boolean) => void;
   cartItems: CartItem[];
   addItemToCart: (productToAdd: CartItem) => void;
   removeItemToCart: (cartItemToRemove: CartItem) => void;
@@ -72,13 +66,13 @@ export const CartContext = createContext<CartContextInterface>({
   cartTotal: 0,
 });
 
+// initial state
 interface INITIAL_STATE_INTERFACE {
   isCartOpen: boolean;
   cartItems: CartItem[];
   cartCount: number;
   cartTotal: number;
 }
-
 const INITIAL_STATE: INITIAL_STATE_INTERFACE = {
   isCartOpen: false,
   cartItems: [],
@@ -86,10 +80,13 @@ const INITIAL_STATE: INITIAL_STATE_INTERFACE = {
   cartTotal: 0,
 };
 
-type CartActions = {
-  type: "SET_CART_ITEM";
-  payload: Omit<INITIAL_STATE_INTERFACE, "isCartOpen">;
-};
+// setting up reducer
+type CartActions =
+  | {
+      type: "SET_CART_ITEM";
+      payload: Omit<INITIAL_STATE_INTERFACE, "isCartOpen">;
+    }
+  | {type: "SET_IS_CART_OPEN"; payload: boolean};
 const cartReducer = (state: INITIAL_STATE_INTERFACE, action: CartActions) => {
   const {type, payload} = action;
 
@@ -98,6 +95,12 @@ const cartReducer = (state: INITIAL_STATE_INTERFACE, action: CartActions) => {
       return {
         ...state,
         ...payload,
+      };
+
+    case "SET_IS_CART_OPEN":
+      return {
+        ...state,
+        isCartOpen: payload,
       };
 
     default:
@@ -147,9 +150,13 @@ export const CartProvider = (props: CartProviderProps) => {
     updateCartItemsReducer(clearCartItem(cartItems, cartItemToClear));
   };
 
+  const setIsCartOpen = (bool: boolean) => {
+    dispatch({type: "SET_IS_CART_OPEN", payload: bool});
+  };
+
   const value = {
     isCartOpen,
-    setIsCartOpen: () => {},
+    setIsCartOpen,
     cartItems,
     addItemToCart,
     removeItemToCart,
