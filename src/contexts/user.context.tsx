@@ -1,5 +1,5 @@
 import {User} from "firebase/auth";
-import React, {createContext, useState, useEffect, useReducer} from "react";
+import React, {createContext, useEffect, useReducer} from "react";
 
 //% Utils
 import {

@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect} from "react";
+import {createContext, useState, useEffect, useReducer} from "react";
 
 export interface CartItem {
   id: number;
@@ -71,6 +71,17 @@ export const CartContext = createContext<CartContextInterface>({
   cartCount: 0,
   cartTotal: 0,
 });
+
+const INITIAL_STATE = {
+  isCartOpen: false,
+  cartItems: [],
+  cartCount: 0,
+  cartTotal: 0,
+};
+
+const cartReducer = (state: typeof INITIAL_STATE, action:any) => {
+  const {type, payload} = action;
+};
 
 interface CartProviderProps {
   children: React.ReactNode;
