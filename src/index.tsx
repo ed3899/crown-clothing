@@ -30,7 +30,7 @@ root.render(
         <UserProvider>
           <CategoriesProvider>
             <CartProvider>
-              <Counter />
+              <App />
             </CartProvider>
           </CategoriesProvider>
         </UserProvider>

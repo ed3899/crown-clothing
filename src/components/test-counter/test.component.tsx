@@ -9,14 +9,22 @@ import {
 
 import {useGetPostsQuery} from "../../store/query/query";
 
+import styles from "./test-styles.module.scss";
+import {useCallback, useState} from "react";
+
 function Counter() {
   const count = useAppSelector(state => state.counter.value);
   const dispatch = useAppDispatch();
+  const [state, setState] = useState(0);
+
+  const memoizedCallback = useCallback(() => {
+    console.log(state);
+  }, [state]);
 
   const {data, error, isLoading} = useGetPostsQuery("");
 
   return (
-    <div>
+    <div className={styles.myScopedClass}>
       <div>
         <button
           aria-label="Increment value"
@@ -31,6 +39,7 @@ function Counter() {
         </button>
         <br />
         <button onClick={() => dispatch(fetchPosts(1))}>Thunk</button>
+        <button onClick={() => memoizedCallback()}>Memo callback</button>
       </div>
     </div>
   );
